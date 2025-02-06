@@ -64,21 +64,19 @@ app.get("/", (req, res) => {
   res.render("index");
 });
 
-app.post("/ajax-login", (req, res, next) => {
-  passport.authenticate("local", (err, user, info) => {
-    if (err) {
-      return res.status(500).json({ message: "Internal Server Error" });
-    }
-    if (!user) {
-      return res.status(401).json({ message: info.message });
-    }
-    req.logIn(user, (err) => {
-      if (err) {
-        return res.status(500).json({ message: "Internal Server Error" });
-      }
-      return res.status(200).json({ message: "Login successful" });
-    });
-  })(req, res, next);
+app.post("/signup", (req, res) => {
+  const { email, password } = req.body;
+  const userExists = users.some((u) => u.username === email);
+  if (userExists) {
+    return res.status(400).json({ message: "User already exists" });
+  }
+  const newUser = {
+    id: users.length + 1,
+    username: email,
+    password: password,
+  };
+  users.push(newUser);
+  res.json({ message: "Sign-up successful" });
 });
 
 app.use((req, res, next) => {

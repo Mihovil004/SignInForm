@@ -2,252 +2,194 @@
 <html lang="en">
   <head>
     <meta charset="UTF-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Log In Form</title>
+    <title>Sign Up</title>
+    <meta http-equiv="x-ua-compatible" content="ie=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
     <style>
-      @import url("https://rsms.me/inter/inter-ui.css");
-      ::selection {
-        background: #2d2f36;
+
+      * {
+        box-sizing: border-box;
       }
-      ::-webkit-selection {
-        background: #2d2f36;
+
+      html {
+        height: 100%;
       }
-      ::-moz-selection {
-        background: #2d2f36;
-      }
+
       body {
-        background: white;
-        font-family: "Inter UI", sans-serif;
+        background-color: #354152;
+        color: #7e8ba3;
+        font: 300 1 rem/1.5
+            Helvetica Neue,
+          sans-serif;
         margin: 0;
-        padding: 20px;
+        min-height: 100%;
       }
-      .page {
-        background: #e2e2e5;
+
+      .align {
+        align-items: center;
         display: flex;
-        flex-direction: column;
-        height: calc(100% - 40px);
-        position: absolute;
-        place-content: center;
-        width: calc(100% - 40px);
-      }
-      @media (max-width: 767px) {
-        .page {
-          height: auto;
-          margin-bottom: 20px;
-          padding-bottom: 20px;
+        flex-direction: row;
+
+        &__item {
+          &--start {
+            align-self: flex-start;
+          }
+
+          &--end {
+            align-self: flex-end;
+          }
         }
       }
-      .container {
-        display: flex;
-        height: 320px;
-        margin: 0 auto;
-        width: 640px;
-      }
-      @media (max-width: 767px) {
-        .container {
-          flex-direction: column;
-          height: 630px;
-          width: 320px;
+
+      .site {
+        &__logo {
+          margin-bottom: 2rem;
         }
       }
-      .left {
-        background: white;
-        height: calc(100% - 40px);
-        top: 20px;
-        position: relative;
-        width: 50%;
-      }
-      @media (max-width: 767px) {
-        .left {
-          height: 100%;
-          left: 20px;
-          width: calc(100% - 40px);
-          max-height: 270px;
-        }
-      }
-      .login {
-        font-size: 50px;
-        font-weight: 900;
-        margin: 50px 40px 40px;
-      }
-      .eula {
-        color: #999;
-        font-size: 14px;
-        line-height: 1.5;
-        margin: 40px;
-      }
-      .right {
-        background: #474a59;
-        box-shadow: 0px 0px 40px 16px rgba(0, 0, 0, 0.22);
-        color: #f1f1f2;
-        position: relative;
-        width: 50%;
-      }
-      @media (max-width: 767px) {
-        .right {
-          flex-shrink: 0;
-          height: 100%;
-          width: 100%;
-          max-height: 350px;
-        }
-      }
-      svg {
-        position: absolute;
-        width: 320px;
-      }
-      path {
-        fill: none;
-        stroke: url(#linearGradient);
-        stroke-width: 4;
-        stroke-dasharray: 240 1386;
-      }
-      .form {
-        margin: 40px;
-        position: absolute;
-      }
-      label {
-        color: #c2c2c5;
-        display: block;
-        font-size: 14px;
-        height: 16px;
-        margin-top: 20px;
-        margin-bottom: 5px;
-      }
+
       input {
-        background: transparent;
         border: 0;
-        color: #f2f2f2;
-        font-size: 20px;
-        height: 30px;
-        line-height: 30px;
-        outline: none !important;
+        font: inherit;
+
+        &::placeholder {
+          color: #7e8ba3;
+        }
+      }
+
+      .form {
+        &__field {
+          margin-bottom: 1rem;
+        }
+
+        input {
+          outline: 0;
+          padding: 0.5rem 1rem;
+
+          &[type="email"],
+          &[type="password"] {
+            width: 100%;
+          }
+        }
+      }
+
+      .grid {
+        margin: 0 auto;
+        max-width: 25rem;
         width: 100%;
       }
-      input::-moz-focus-inner {
-        border: 0;
+
+      h2 {
+        font-size: 2.75rem;
+        font-weight: 100;
+        margin: 0 0 1rem;
+        text-transform: uppercase;
       }
-      #submit {
-        color: #707075;
-        margin-top: 40px;
-        transition: color 300ms;
+
+      svg {
+        height: auto;
+        max-width: 100%;
+        vertical-align: middle;
       }
-      #submit:focus {
-        color: #f2f2f2;
+
+      a {
+        color: #7e8ba3;
       }
-      #submit:active {
-        color: #d0d0d2;
+
+      .register {
+        box-shadow: 0 0 250px #000;
+        text-align: center;
+        padding: 4rem 2rem;
+
+        input {
+          color: #fff;
+          border: 1px solid #242c37;
+          border-radius: 999px;
+          background-color: transparent;
+          text-align: center;
+
+          &[type="email"],
+          &[type="password"] {
+            background-repeat: no-repeat;
+            background-size: 1.5rem;
+            background-position: 1rem 50%;
+          }
+
+          &[type="email"] {
+            background-image: url('data:image/svg+xml;charset=UTF-8,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512" fill="#242c37"><path d="M256.017 273.436l-205.17-170.029h410.904l-205.734 170.029zm-.034 55.462l-205.983-170.654v250.349h412v-249.94l-206.017 170.245z"/></svg>');
+          }
+
+          &[type="password"] {
+            background-image: url('data:image/svg+xml;charset=UTF-8,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512" fill="#242c37"><path d="M195.334 223.333h-50v-62.666c0-61.022 49.645-110.667 110.666-110.667 61.022 0 110.667 49.645 110.667 110.667v62.666h-50v-62.666c0-33.452-27.215-60.667-60.667-60.667-33.451 0-60.666 27.215-60.666 60.667v62.666zm208.666 30v208.667h-296v-208.667h296zm-121 87.667c0-14.912-12.088-27-27-27s-27 12.088-27 27c0 7.811 3.317 14.844 8.619 19.773 4.385 4.075 6.881 9.8 6.881 15.785v22.942h23v-22.941c0-5.989 2.494-11.708 6.881-15.785 5.302-4.93 8.619-11.963 8.619-19.774z"/></svg>');
+          }
+
+          &[type="submit"] {
+            background-image: linear-gradient(160deg, #8ceabb 0%, #378f7b 100%);
+            color: #fff;
+            margin-bottom: 6rem;
+            width: 100%;
+          }
+        }
       }
     </style>
   </head>
-  <body>
-    <section class="page">
-      <section class="container">
-        <section class="left">
-          <section class="login">Login</section>
-          <section class="eula">
-            By logging in you agree to the ridiculously long terms that you
-            didn't bother to read
-          </section>
-        </section>
-        <section class="right">
-          <svg viewBox="0 0 320 300">
-            <defs>
-              <linearGradient
-                inkscape:collect="always"
-                id="linearGradient"
-                x1="13"
-                y1="193.49992"
-                x2="307"
-                y2="193.49992"
-                gradientUnits="userSpaceOnUse"
-              >
-                <stop style="stop-color: #ff00ff" offset="0" id="stop876" />
-                <stop style="stop-color: #ff0000" offset="1" id="stop878" />
-              </linearGradient>
-            </defs>
-            <path
-              d="m 40,120.00016 239.99984,-3.2e-4 c 0,0 24.99263,0.79932 25.00016,35.00016 0.008,34.20084 -25.00016,35 -25.00016,35 h -239.99984 c 0,-0.0205 -25,4.01348 -25,38.5 0,34.48652 25,38.5 25,38.5 h 215 c 0,0 20,-0.99604 20,-25 0,-24.00396 -20,-25 -20,-25 h -190 c 0,0 -20,1.71033 -20,25 0,24.00396 20,25 20,25 h 168.57143"
-            />
-          </svg>
-          <section class="form">
-            <label for="email">Email</label>
-            <input type="email" id="email" />
-            <label for="password">Password</label>
-            <input type="password" id="password" />
-            <input type="submit" id="submit" value="Submit" />
-          </section>
-        </section>
-      </section>
-    </section>
-    <script>
-      var current = null;
-      document.querySelector("#email").addEventListener("focus", function (e) {
-        if (current) current.pause();
-        current = anime({
-          targets: "path",
-          strokeDashoffset: {
-            value: 0,
-            duration: 700,
-            easing: "easeOutQuart",
-          },
-          strokeDasharray: {
-            value: "240 1386",
-            duration: 700,
-            easing: "easeOutQuart",
-          },
-        });
-      });
-      document
-        .querySelector("#password")
-        .addEventListener("focus", function (e) {
-          if (current) current.pause();
-          current = anime({
-            targets: "path",
-            strokeDashoffset: {
-              value: -336,
-              duration: 700,
-              easing: "easeOutQuart",
-            },
-            strokeDasharray: {
-              value: "240 1386",
-              duration: 700,
-              easing: "easeOutQuart",
-            },
-          });
-        });
-      document.querySelector("#submit").addEventListener("focus", function (e) {
-        if (current) current.pause();
-        current = anime({
-          targets: "path",
-          strokeDashoffset: {
-            value: -730,
-            duration: 700,
-            easing: "easeOutQuart",
-          },
-          strokeDasharray: {
-            value: "530 1386",
-            duration: 700,
-            easing: "easeOutQuart",
-          },
-        });
-      });
-      document.querySelector(".form").addEventListener("submit", function (e) {
-        e.preventDefault();
-        const email = document.querySelector("#email").value;
-        const password = document.querySelector("#password").value;
+  <body class="align">
+    <main class="grid align__item">
+      <section class="register">
+        <svg
+          xmlns="http://www.w3.org/2000/svg"
+          class="site__logo"
+          width="56"
+          height="84"
+          viewBox="77.7 214.9 274.7 412"
+        >
+          <defs>
+            <linearGradient id="a" x1="0%" y1="0%" y2="0%">
+              <stop offset="0%" stop-color="#8ceabb" />
+              <stop offset="100%" stop-color="#378f7b" />
+            </linearGradient>
+          </defs>
+          <path
+            fill="url(#a)"
+            d="M215 214.9c-83.6 123.5-137.3 200.8-137.3 275.9 0 75.2 61.4 136.1 137.3 136.1s137.3-60.9 137.3-136.1c0-75.1-53.7-152.4-137.3-275.9z"
+          />
+        </svg>
 
-        fetch("/ajax-login", {
+        <h2>Sign Up</h2>
+
+        <form id="signupForm" class="form">
+          <section class="form__field">
+            <input type="email" id="email" placeholder="info@mailaddress.com" required />
+          </section>
+
+          <section class="form__field">
+            <input type="password" id="password" placeholder="••••••••••••" required />
+          </section>
+
+          <section class="form__field">
+            <input type="submit" value="Sign Up" />
+          </section>
+        </form>
+
+        <p>Already have an account? <a href="#">Log in</a></p>
+      </section>
+    </main>
+    <script>
+      document.getElementById("signupForm").addEventListener("submit", function (e) {
+        e.preventDefault();
+        const email = document.getElementById("email").value;
+        const password = document.getElementById("password").value;
+
+        fetch("/signup", {
           method: "POST",
           headers: {
             "Content-Type": "application/json",
           },
-          body: JSON.stringify({ username: email, password: password }),
+          body: JSON.stringify({ email, password }),
         })
           .then((response) => response.json())
           .then((data) => {
-            if (data.message === "Login successful") {
-              alert(data.message);
-              window.location.href = "/";
+            if (data.message === "Sign-up successful") {
+              alert("Sign-up successful! Please log in.");
             } else {
               alert(data.message);
             }
