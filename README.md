@@ -22,7 +22,7 @@ npm start
 
 1. Clone the repository:
     ```bash
-    git clone https://github.com/yourusername/SignInForm.git
+    git clone https://github.com/mihovil004/SignInForm.git
     ```
 2. Navigate to the project directory:
     ```bash
