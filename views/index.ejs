@@ -6,205 +6,324 @@
     <meta http-equiv="x-ua-compatible" content="ie=edge" />
     <meta name="viewport" content="width=device-width, initial-scale=1" />
     <style>
+      @import url("https://fonts.googleapis.com/css?family=Nunito:400,600,700");
 
       * {
         box-sizing: border-box;
       }
 
-      html {
-        height: 100%;
-      }
+body {
+  font-family: "Nunito", sans-serif;
+  color: rgba(#000, 0.7);
+}
 
-      body {
-        background-color: #354152;
-        color: #7e8ba3;
-        font: 300 1 rem/1.5
-            Helvetica Neue,
-          sans-serif;
-        margin: 0;
-        min-height: 100%;
-      }
+.container {
+  height: 200vh;
+  background-image: url(https://images.unsplash.com/photo-1538137524007-21e48fa42f3f?ixlib=rb-0.3.5&ixid=eyJhcHBfaWQiOjEyMDd9&s=ac9fa0975bd2ebad7afd906c5a3a15ab&auto=format&fit=crop&w=1834&q=80);
+  background-size: cover;
+  background-position: center;
+  background-repeat: no-repeat;
+}
 
-      .align {
-        align-items: center;
-        display: flex;
-        flex-direction: row;
+.modal {
+  position: fixed;
+  left: 0;
+  bottom: 0;
+  width: 100%;
+  height: 60px;
+  background: rgba(#333, 0.5);
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  transition: 0.4s;
 
-        &__item {
-          &--start {
-            align-self: flex-start;
-          }
+  &-container {
+    display: flex;
+    max-width: 720px;
+    width: 100%;
+    border-radius: 10px;
+    overflow: hidden;
+    position: absolute;
+    opacity: 0;
+    pointer-events: none;
+    transition-duration: 0.3s;
+    background: #fff;
+    transform: translateY(100px) scale(0.4);
+  }
 
-          &--end {
-            align-self: flex-end;
-          }
-        }
-      }
+  &-title {
+    font-size: 26px;
+    margin: 0;
+    font-weight: 400;
+    color: #55311c;
+  }
 
-      .site {
-        &__logo {
-          margin-bottom: 2rem;
-        }
-      }
+  &-desc {
+    margin: 6px 0 30px 0;
+  }
 
-      input {
-        border: 0;
-        font: inherit;
+  &-left {
+    padding: 60px 30px 20px;
+    background: #fff;
+    flex: 1.5;
+    transition-duration: 0.5s;
+    transform: translateY(80px);
+    opacity: 0;
+  }
 
-        &::placeholder {
-          color: #7e8ba3;
-        }
-      }
+  &-button {
+    color: darken(#8c7569, 5%);
+    font-family: "Nunito", sans-serif;
+    font-size: 18px;
+    cursor: pointer;
+    border: 0;
+    outline: 0;
+    padding: 10px 40px;
+    border-radius: 30px;
+    background: rgb(255, 255, 255);
+    box-shadow: 0 10px 40px rgba(0, 0, 0, 0.16);
+    transition: 0.3s;
+    
+    &:hover {
+      border-color: rgba(255, 255, 255, 0.2);
+      background: rgba(#fff, 0.8);
+    }
+  }
 
-      .form {
-        &__field {
-          margin-bottom: 1rem;
-        }
+  &-right {
+    flex: 2;
+    font-size: 0;
+    transition: 0.3s;
+    overflow: hidden;
 
-        input {
-          outline: 0;
-          padding: 0.5rem 1rem;
+    img {
+      width: 100%;
+      height: 100%;
+      transform: scale(2);
+      object-fit: cover;
+      transition-duration: 1.2s;
+    }
+  }
 
-          &[type="email"],
-          &[type="password"] {
-            width: 100%;
-          }
-        }
-      }
+  &.is-open {
+    height: 100%;
+    background: rgba(#333, 0.85);
 
-      section {
-        margin: 10px;
-        max-width: 25rem;
-        width: 100%;
-      }
+    .modal-button {
+      opacity: 0;
+    }
 
-      .grid {
-        margin: 0 auto;
-        max-width: 25rem;
-        width: 100%;
-      }
+    .modal-container {
+      opacity: 1;
+      transition-duration: 0.6s;
+      pointer-events: auto;
+      transform: translateY(0) scale(1);
+    }
 
-      h2 {
-        color: #fff;
-        font-size: 2.75rem;
-        font-weight: 100;
-        margin: 0 0 1rem;
-        text-transform: uppercase;
-      }
+    .modal-right img {
+      transform: scale(1);
+    }
 
-      svg {
-        height: auto;
-        max-width: 100%;
-        vertical-align: middle;
-      }
+    .modal-left {
+      transform: translateY(0);
+      opacity: 1;
+      transition-delay: 0.1s;
+    }
+  }
 
-      a {
-        color: #7e8ba3;
-      }
+  &-buttons {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
 
-      .register {
-        box-shadow: 0 0 250px #000;
-        text-align: center;
-        padding: 4rem 2rem;
+    a {
+      color: rgba(#333, 0.6);
+      font-size: 14px;
+    }
+  }
+}
 
-        input {
-          color: #fff;
-          border: 1px solid #242c37;
-          border-radius: 999px;
-          background-color: transparent;
-          text-align: center;
+.sign-up {
+  margin: 60px 0 0;
+  font-size: 14px;
+  text-align: center;
 
-          &[type="email"],
-          &[type="password"] {
-            background-repeat: no-repeat;
-            background-size: 1.5rem;
-            background-position: 1rem 50%;
-          }
+  a {
+    color: #8c7569;
+  }
+}
 
-          &[type="email"] {
-            background-image: url('data:image/svg+xml;charset=UTF-8,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512" fill="#242c37"><path d="M256.017 273.436l-205.17-170.029h410.904l-205.734 170.029zm-.034 55.462l-205.983-170.654v250.349h412v-249.94l-206.017 170.245z"/></svg>');
-          }
+.input-button {
+  padding: 8px 12px;
+  outline: none;
+  border: 0;
+  color: #fff;
+  border-radius: 4px;
+  background: #8c7569;
+  font-family: "Nunito", sans-serif;
+  transition: 0.3s;
+  cursor: pointer;
 
-          &[type="password"] {
-            background-image: url('data:image/svg+xml;charset=UTF-8,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512" fill="#242c37"><path d="M195.334 223.333h-50v-62.666c0-61.022 49.645-110.667 110.666-110.667 61.022 0 110.667 49.645 110.667 110.667v62.666h-50v-62.666c0-33.452-27.215-60.667-60.667-60.667-33.451 0-60.666 27.215-60.666 60.667v62.666zm208.666 30v208.667h-296v-208.667h296zm-121 87.667c0-14.912-12.088-27-27-27s-27 12.088-27 27c0 7.811 3.317 14.844 8.619 19.773 4.385 4.075 6.881 9.8 6.881 15.785v22.942h23v-22.941c0-5.989 2.494-11.708 6.881-15.785 5.302-4.93 8.619-11.963 8.619-19.774z"/></svg>');
-          }
+  &:hover {
+    background: #55311c;
+  }
+}
 
-          &[type="submit"] {
-            background-image: linear-gradient(160deg, #8ceabb 0%, #378f7b 100%);
-            color: #fff;
-            margin-bottom: 6rem;
-            width: 100%;
-          }
-        }
-      }
+.input-label {
+  font-size: 11px;
+  text-transform: uppercase;
+  font-family: "Nunito", sans-serif;
+  font-weight: 600;
+  letter-spacing: 0.7px;
+  color: #8c7569;
+  transition: 0.3s;
+}
+
+.input-block {
+  display: flex;
+  flex-direction: column;
+  padding: 10px 10px 8px;
+  border: 1px solid #ddd;
+  border-radius: 4px;
+  margin-bottom: 20px;
+  transition: 0.3s;
+
+  input {
+    outline: 0;
+    border: 0;
+    padding: 4px 0 0;
+    font-size: 14px;
+    font-family: "Nunito", sans-serif;
+
+    &::placeholder {
+      color: #ccc;
+      opacity: 1;
+    }
+  }
+
+  &:focus-within {
+    border-color: #8c7569;
+
+    .input-label {
+      color: rgba(#8c7569, 0.8);
+    }
+  }
+}
+
+.icon-button {
+  outline: 0;
+  position: absolute;
+  right: 10px;
+  top: 12px;
+  width: 32px;
+  height: 32px;
+  border: 0;
+  background: 0;
+  padding: 0;
+  cursor: pointer;
+}
+
+.scroll-down {
+  position: fixed;
+  top: 50%;
+  left: 50%;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  text-align: center;
+  color: darken(#8c7569, 5%);
+  font-size: 32px;
+  font-weight: 800;
+  transform: translate(-50%, -50%);
+  svg {
+    margin-top: 16px;
+    width: 52px;
+    fill: currentColor;
+  }
+}
+
+
+@media(max-width: 750px) {
+  .modal-container {
+    width: 90%;
+  }
+  .modal-right {
+    display: none;
+  }
+}
     </style>
   </head>
-  <body class="align">
-    <main class="grid align__item">
-      <section class="register">
-        <svg
-          xmlns="http://www.w3.org/2000/svg"
-          class="site__logo"
-          width="56"
-          height="84"
-          viewBox="77.7 214.9 274.7 412"
-        >
-          <defs>
-            <linearGradient id="a" x1="0%" y1="0%" y2="0%">
-              <stop offset="0%" stop-color="#8ceabb" />
-              <stop offset="100%" stop-color="#378f7b" />
-            </linearGradient>
-          </defs>
-          <path
-            fill="url(#a)"
-            d="M215 214.9c-83.6 123.5-137.3 200.8-137.3 275.9 0 75.2 61.4 136.1 137.3 136.1s137.3-60.9 137.3-136.1c0-75.1-53.7-152.4-137.3-275.9z"
-          />
-        </svg>
-
-        <h2>Sign Up</h2>
-
-        <form id="signupForm" class="form">
-          <section class="form__field">
-            <input type="email" id="email" placeholder="info@mailaddress.com" required />
-          </section>
-
-          <section class="form__field">
-            <input type="password" id="password" placeholder="••••••••••••" required />
-          </section>
-
-          <section class="form__field">
-            <input type="submit" value="Sign Up" />
-          </section>
-        </form>
-
-        <p>Already have an account? <a href="#">Log in</a></p>
-      </section>
+  <body>
+    <div class="scroll-down">SCROLL DOWN
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 32 32">
+      <path d="M16 3C8.832031 3 3 8.832031 3 16s5.832031 13 13 13 13-5.832031 13-13S23.167969 3 16 3zm0 2c6.085938 0 11 4.914063 11 11 0 6.085938-4.914062 11-11 11-6.085937 0-11-4.914062-11-11C5 9.914063 9.914063 5 16 5zm-1 4v10.28125l-4-4-1.40625 1.4375L16 23.125l6.40625-6.40625L21 15.28125l-4 4V9z"/> 
+    </svg></div>
+    <div class="container"></div>
+    <div class="modal">
+      <div class="modal-container">
+        <div class="modal-left">
+          <h1 class="modal-title">Welcome!</h1>
+          <p class="modal-desc">Fanny pack hexagon food truck, street art waistcoat kitsch.</p>
+          <div class="input-block">
+            <label for="email" class="input-label">Email</label>
+            <input type="email" name="email" id="email" placeholder="Email">
+          </div>
+          <div class="input-block">
+            <label for="password" class="input-label">Password</label>
+            <input type="password" name="password" id="password" placeholder="Password">
+          </div>
+          <div class="modal-buttons">
+            <a href="" class="">Forgot your password?</a>
+            <button class="input-button">Login</button>
+          </div>
+          <p class="sign-up">Don't have an account? <a href="#">Sign up now</a></p>
+        </div>
+        <div class="modal-right">
+          <img src="https://images.unsplash.com/photo-1512486130939-2c4f79935e4f?ixlib=rb-0.3.5&ixid=eyJhcHBfaWQiOjEyMDd9&s=dfd2ec5a01006fd8c4d7592a381d3776&auto=format&fit=crop&w=1000&q=80" alt="">
+        </div>
+        <button class="icon-button close-button">
+            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 50 50">
+        <path d="M 25 3 C 12.86158 3 3 12.86158 3 25 C 3 37.13842 12.86158 47 25 47 C 37.13842 47 47 37.13842 47 25 C 47 12.86158 37.13842 3 25 3 z M 25 5 C 36.05754 5 45 13.94246 45 25 C 45 36.05754 36.05754 45 25 45 C 13.94246 45 5 36.05754 5 25 C 5 13.94246 13.94246 5 25 5 z M 16.990234 15.990234 A 1.0001 1.0001 0 0 0 16.292969 17.707031 L 23.585938 25 L 16.292969 32.292969 A 1.0001 1.0001 0 1 0 17.707031 33.707031 L 25 26.414062 L 32.292969 33.707031 A 1.0001 1.0001 0 1 0 33.707031 32.292969 L 26.414062 25 L 33.707031 17.707031 A 1.0001 1.0001 0 0 0 32.980469 15.990234 A 1.0001 1.0001 0 0 0 32.292969 16.292969 L 25 23.585938 L 17.707031 16.292969 A 1.0001 1.0001 0 0 0 16.990234 15.990234 z"></path>
+    </svg>
+          </button>
+      </div>
+      <button class="modal-button">Click here to login</button>
+    </div>
     </main>
     <script>
-      document.getElementById("signupForm").addEventListener("submit", function (e) {
-        e.preventDefault();
-        const email = document.getElementById("email").value;
-        const password = document.getElementById("password").value;
+      const body = document.querySelector("body");
+const modal = document.querySelector(".modal");
+const modalButton = document.querySelector(".modal-button");
+const closeButton = document.querySelector(".close-button");
+const scrollDown = document.querySelector(".scroll-down");
+let isOpened = false;
 
-        fetch("/signup", {
-          method: "POST",
-          headers: {
-            "Content-Type": "application/json",
-          },
-          body: JSON.stringify({ email, password }),
-        })
-          .then((response) => response.json())
-          .then((data) => {
-            if (data.message === "Sign-up successful") {
-              alert("Sign-up successful! Please log in.");
-            } else {
-              alert(data.message);
-            }
-          })
-          .catch((error) => {
-            console.error("Error:", error);
-          });
-      });
+const openModal = () => {
+  modal.classList.add("is-open");
+  body.style.overflow = "hidden";
+};
+
+const closeModal = () => {
+  modal.classList.remove("is-open");
+  body.style.overflow = "initial";
+};
+
+window.addEventListener("scroll", () => {
+  if (window.scrollY > window.innerHeight / 3 && !isOpened) {
+    isOpened = true;
+    scrollDown.style.display = "none";
+    openModal();
+  }
+});
+
+modalButton.addEventListener("click", openModal);
+closeButton.addEventListener("click", closeModal);
+
+document.onkeydown = evt => {
+  evt = evt || window.event;
+  evt.keyCode === 27 ? closeModal() : false;
+};
     </script>
   </body>
 </html>
