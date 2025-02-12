@@ -87,12 +87,14 @@ app.post("/login", (req, res, next) => {
 });
 
 app.use((req, res, next) => {
-  res.status(404).render("404");
+  const err = new Error("Not Found");
+  err.status = 404;
+  next(err);
 });
 
 app.use((err, req, res, next) => {
   console.error(err.stack);
-  res.status(500).render("500");
+  res.status(err.status || 500).render("error", { message: err.message || "Internal Server Error" });
 });
 
 app.listen(port, () => {
