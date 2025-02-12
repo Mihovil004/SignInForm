@@ -31,10 +31,10 @@ app.use(flash());
 app.use(methodOverride("_method"));
 
 passport.use(
-  new LocalStrategy((username, password, done) => {
-    const user = users.find((u) => u.username === username);
+  new LocalStrategy({ usernameField: 'email' }, (email, password, done) => {
+    const user = users.find((u) => u.email === email);
     if (!user) {
-      return done(null, false, { message: "Incorrect username." });
+      return done(null, false, { message: "Incorrect email." });
     }
     if (user.password !== password) {
       return done(null, false, { message: "Incorrect password." });
@@ -52,15 +52,15 @@ passport.deserializeUser((id, done) => {
   done(null, user);
 });
 
-let users=[
+let users = [
   {
     id: 1,
-    username: "user",
+    email: "user@gmail.com",
     password: "password",
   },
   {
     id: 2,
-    username: "admin",
+    email: "admin@gmail.com",
     password: "admin",
   }
 ];
