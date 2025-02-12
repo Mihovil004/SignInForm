@@ -12,8 +12,6 @@ const dotenv = require("dotenv");
 dotenv.config();
 
 const app = express();
-const port = process.env.PORT || 3000;
-const sessionSecret = process.env.SESSION_SECRET || "secret";
 app.use(express.static(path.join(__dirname, "public")));
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: true }));
@@ -21,7 +19,7 @@ app.set("views", path.join(__dirname, "views"));
 app.set("view engine", "ejs");
 app.use(
   session({
-    secret: sessionSecret,
+    secret: process.env.SESSION_SECRET || "Secret, don't tell anyone!",
     resave: false,
     saveUninitialized: false,
   })
@@ -98,6 +96,7 @@ app.use((err, req, res, next) => {
   res.status(err.status || 500).render("error", { message: err.message || "Internal Server Error" });
 });
 
+const port = process.env.PORT || 3000;
 app.listen(port, () => {
   console.log(`Server is running on http://localhost:${port}`);
 });
