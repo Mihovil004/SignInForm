@@ -30,14 +30,6 @@ app.use(passport.session());
 app.use(flash());
 app.use(methodOverride("_method"));
 
-const users = [
-  {
-    id: 1,
-    username: "user",
-    password: "password",
-  },
-];
-
 passport.use(
   new LocalStrategy((username, password, done) => {
     const user = users.find((u) => u.username === username);
@@ -60,23 +52,38 @@ passport.deserializeUser((id, done) => {
   done(null, user);
 });
 
+let users=[
+  {
+    id: 1,
+    username: "user",
+    password: "password",
+  },
+  {
+    id: 2,
+    username: "admin",
+    password: "admin",
+  }
+];
+
 app.get("/", (req, res) => {
   res.render("index");
 });
 
-app.post("/signup", (req, res) => {
-  const { email, password } = req.body;
-  const userExists = users.some((u) => u.username === email);
-  if (userExists) {
-    return res.status(400).json({ message: "User already exists" });
-  }
-  const newUser = {
-    id: users.length + 1,
-    username: email,
-    password: password,
-  };
-  users.push(newUser);
-  res.json({ message: "Sign-up successful" });
+app.post("/login", (req, res, next) => {
+  passport.authenticate("local", (err, user, info) => {
+    if (err) {
+      return next(err);
+    }
+    if (!user) {
+      return res.json({ success: false, message: info.message });
+    }
+    req.logIn(user, (err) => {
+      if (err) {
+        return next(err);
+      }
+      return res.json({ success: true });
+    });
+  })(req, res, next);
 });
 
 app.use((req, res, next) => {
